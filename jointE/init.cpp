@@ -8,11 +8,19 @@
 
 using namespace std;
 
-string inPath = "./data/FB60K/";
+string inPath = "./data/";
+
+extern "C"
+void setInPath(char *path) {
+    int len = strlen(path);
+    inPath = "";
+    for (int i = 0; i < len; i++)
+        inPath = inPath + path[i];
+    printf("Input Files Path : %s\n", inPath.c_str());
+}
 
 int *lefHead, *rigHead;
 int *lefTail, *rigTail;
-int *lefRel, *rigRel;
 
 struct Triple {
 	int h, r, t;
@@ -27,12 +35,6 @@ struct cmp_head {
 struct cmp_tail {
 	bool operator()(const Triple &a, const Triple &b) {
 		return (a.t < b.t)||(a.t == b.t && a.r < b.r)||(a.t == b.t && a.r == b.r && a.h < b.h);
-	}
-};
-
-struct cmp_rel {
-	bool operator()(const Triple &a, const Triple &b) {
-		return (a.r < b.r)||(a.r == b.r && a.h < b.h)||(a.h == b.h && a.r == b.r && a.t < b.t);
 	}
 };
 
@@ -60,17 +62,20 @@ void init() {
 	fin = fopen((inPath + "relation2id.txt").c_str(), "r");
 	tmp = fscanf(fin, "%d", &relationTotal);
 	fclose(fin);
+	printf("%d\n", relationTotal);
 
 	freqRel = (int *)calloc(relationTotal, sizeof(int));
 	
 	fin = fopen((inPath + "entity2id.txt").c_str(), "r");
 	tmp = fscanf(fin, "%d", &entityTotal);
 	fclose(fin);
+	printf("%d\n", entityTotal);
 
 	freqEnt = (int *)calloc(entityTotal, sizeof(int));
 	
 	fin = fopen((inPath + "triple2id.txt").c_str(), "r");
 	tmp = fscanf(fin, "%d", &tripleTotal);
+	printf("%d\n", tripleTotal);
 	trainHead = (Triple *)calloc(tripleTotal, sizeof(Triple));
 	trainTail = (Triple *)calloc(tripleTotal, sizeof(Triple));
 	trainList = (Triple *)calloc(tripleTotal, sizeof(Triple));
@@ -93,20 +98,13 @@ void init() {
 
 	sort(trainHead, trainHead + tripleTotal, cmp_head());
 	sort(trainTail, trainTail + tripleTotal, cmp_tail());
-	sort(trainList, trainList + tripleTotal, cmp_rel());
 
 	lefHead = (int *)calloc(entityTotal, sizeof(int));
 	rigHead = (int *)calloc(entityTotal, sizeof(int));
 	lefTail = (int *)calloc(entityTotal, sizeof(int));
 	rigTail = (int *)calloc(entityTotal, sizeof(int));
-
-	lefRel = (int *)calloc(relationTotal, sizeof(int));
-	rigRel = (int *)calloc(relationTotal, sizeof(int));
-
 	memset(rigHead, -1, sizeof(rigHead));
 	memset(rigTail, -1, sizeof(rigTail));
-	memset(rigRel, -1, sizeof(rigRel));
-
 	for (int i = 1; i < tripleTotal; i++) {
 		if (trainTail[i].t != trainTail[i - 1].t) {
 			rigTail[trainTail[i - 1].t] = i - 1;
@@ -116,14 +114,9 @@ void init() {
 			rigHead[trainHead[i - 1].h] = i - 1;
 			lefHead[trainHead[i].h] = i;
 		}
-		if (trainList[i].r != trainList[i-1].r) {
-			rigRel[trainList[i-1].r] = i -1;
-			lefRel[trainList[i].r] = i;
-		}
 	}
 	rigHead[trainHead[tripleTotal - 1].h] = tripleTotal - 1;
 	rigTail[trainTail[tripleTotal - 1].t] = tripleTotal - 1;
-	rigRel[trainList[tripleTotal - 1].r] = tripleTotal - 1;
 
 	left_mean = (float *)calloc(relationTotal,sizeof(float));
 	right_mean = (float *)calloc(relationTotal,sizeof(float));
@@ -160,6 +153,7 @@ int getTripleTotal() {
 	return tripleTotal;
 }
 
+// unsigned long long *next_random;
 unsigned long long next_random = 3;
 
 unsigned long long randd(int id) {
@@ -261,9 +255,4 @@ void getBatch(int *ph, int *pt, int *pr, int *nh, int *nt, int *nr, int batchSiz
 			nr[batch] = trainList[i].r;
 		}
 	}
-}
-
-int main() {
-	init();
-	return 0;
 }

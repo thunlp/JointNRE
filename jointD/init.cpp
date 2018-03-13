@@ -8,7 +8,16 @@
 
 using namespace std;
 
-string inPath = "../data/FB60K/";
+string inPath = "./data/";
+
+extern "C"
+void setInPath(char *path) {
+    int len = strlen(path);
+    inPath = "";
+    for (int i = 0; i < len; i++)
+        inPath = inPath + path[i];
+    printf("Input Files Path : %s\n", inPath.c_str());
+}
 
 int *lefHead, *rigHead;
 int *lefTail, *rigTail;
@@ -53,17 +62,20 @@ void init() {
 	fin = fopen((inPath + "relation2id.txt").c_str(), "r");
 	tmp = fscanf(fin, "%d", &relationTotal);
 	fclose(fin);
+	printf("%d\n", relationTotal);
 
 	freqRel = (int *)calloc(relationTotal, sizeof(int));
 	
 	fin = fopen((inPath + "entity2id.txt").c_str(), "r");
 	tmp = fscanf(fin, "%d", &entityTotal);
 	fclose(fin);
+	printf("%d\n", entityTotal);
 
 	freqEnt = (int *)calloc(entityTotal, sizeof(int));
 	
 	fin = fopen((inPath + "triple2id.txt").c_str(), "r");
 	tmp = fscanf(fin, "%d", &tripleTotal);
+	printf("%d\n", tripleTotal);
 	trainHead = (Triple *)calloc(tripleTotal, sizeof(Triple));
 	trainTail = (Triple *)calloc(tripleTotal, sizeof(Triple));
 	trainList = (Triple *)calloc(tripleTotal, sizeof(Triple));
@@ -242,16 +254,5 @@ void getBatch(int *ph, int *pt, int *pr, int *nh, int *nt, int *nr, int batchSiz
 			nt[batch] = trainList[i].t;
 			nr[batch] = trainList[i].r;
 		}
-		ph[batchSize + batch] = trainList[i].h;
-		pt[batchSize + batch] = trainList[i].t;
-		pr[batchSize + batch] = trainList[i].r;
-		nh[batchSize + batch] = trainList[i].h;
-		nt[batchSize + batch] = trainList[i].t;
-		nr[batchSize + batch] = rand_max(id, relationTotal);
 	}
-}
-
-int main() {
-	init();
-	return 0;
 }
