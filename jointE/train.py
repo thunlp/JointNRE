@@ -27,21 +27,21 @@ FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_float('nbatch_kg',100,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('margin',1.0,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('learning_rate_kg',0.001,'learning rate for kg')
-tf.app.flags.DEFINE_float('ent_total',lib.getEntityTotal(),'total of entities')
-tf.app.flags.DEFINE_float('rel_total',lib.getRelationTotal(),'total of relations')
-tf.app.flags.DEFINE_float('tri_total',lib.getTripleTotal(),'total of triples')
-tf.app.flags.DEFINE_float('katt_flag', 1, '1 for katt, 0 for att')
+tf.app.flags.DEFINE_integer('ent_total',lib.getEntityTotal(),'total of entities')
+tf.app.flags.DEFINE_integer('rel_total',lib.getRelationTotal(),'total of relations')
+tf.app.flags.DEFINE_integer('tri_total',lib.getTripleTotal(),'total of triples')
+tf.app.flags.DEFINE_integer('katt_flag', 1, '1 for katt, 0 for att')
 
 tf.app.flags.DEFINE_string('model', 'cnn', 'neural models to encode sentences')
-tf.app.flags.DEFINE_float('max_length',config['fixlen'],'maximum of number of words in one sentence')
-tf.app.flags.DEFINE_float('pos_num', config['maxlen'] * 2 + 1,'number of position embedding vectors')
-tf.app.flags.DEFINE_float('num_classes', config['textual_rel_total'],'maximum of relations')
+tf.app.flags.DEFINE_integer('max_length',config['fixlen'],'maximum of number of words in one sentence')
+tf.app.flags.DEFINE_integer('pos_num', config['maxlen'] * 2 + 1,'number of position embedding vectors')
+tf.app.flags.DEFINE_integer('num_classes', config['textual_rel_total'],'maximum of relations')
 
-tf.app.flags.DEFINE_float('hidden_size',230,'hidden feature size')
-tf.app.flags.DEFINE_float('pos_size',5,'position embedding size')
+tf.app.flags.DEFINE_integer('hidden_size',230,'hidden feature size')
+tf.app.flags.DEFINE_integer('pos_size',5,'position embedding size')
 
-tf.app.flags.DEFINE_float('max_epoch',20,'maximum of training epochs')
-tf.app.flags.DEFINE_float('batch_size',160,'entity numbers used each training time')
+tf.app.flags.DEFINE_integer('max_epoch',20,'maximum of training epochs')
+tf.app.flags.DEFINE_integer('batch_size',160,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('learning_rate',0.5,'learning rate for nn')
 tf.app.flags.DEFINE_float('weight_decay',0.00001,'weight_decay')
 tf.app.flags.DEFINE_float('keep_prob',0.5,'dropout rate')
@@ -74,6 +74,7 @@ def main(_):
 	print 'reading word embedding'
 	word_vec = np.load(export_path + 'vec.npy')
 	print 'reading training data'
+	
 	instance_triple = np.load(export_path + 'train_instance_triple.npy')
 	instance_scope = np.load(export_path + 'train_instance_scope.npy')
 	train_len = np.load(export_path + 'train_len.npy')
@@ -84,6 +85,7 @@ def main(_):
 	train_mask = np.load(export_path + 'train_mask.npy')
 	train_head = np.load(export_path + 'train_head.npy')
 	train_tail = np.load(export_path + 'train_tail.npy')
+
 	print 'reading finished'
 	print 'mentions 		: %d' % (len(instance_triple))
 	print 'sentences		: %d' % (len(train_len))
