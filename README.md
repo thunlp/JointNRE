@@ -38,7 +38,7 @@ Datasets are required in the folder data/ in the following format, containing at
 Run the experiments
 ==========
 
-###To run the experiments, unpack the datasets first:
+### To run the experiments, unpack the datasets first:
 
 ```
 unzip origin_data.zip -d origin_data/
@@ -46,7 +46,7 @@ mkdir data/
 python initial.py
 ```
 
-###Run the corresponding python scripts to train models:
+### Run the corresponding python scripts to train models:
 
 ```
 cd jointE
@@ -54,7 +54,7 @@ bash make.sh
 python train.py
 ```
 
-###Change the corresponding python code to set hyperparameters:
+### Change the corresponding python code to set hyperparameters:
 
 ```
 tf.app.flags.DEFINE_float('nbatch_kg',100,'entity numbers used each training time')
@@ -83,7 +83,7 @@ tf.app.flags.DEFINE_string('model_dir','./model/','path to store model')
 tf.app.flags.DEFINE_string('summary_dir','./summary','path to store summary_dir')
 ```
 
-###Run the corresponding python scripts to test models:
+### Run the corresponding python scripts to test models:
 
 ```
 cd jointE
@@ -93,11 +93,23 @@ python test.py
 
 Note that the hyperparameters in the train.py and the test.py must be the same.
 
-###Run the corresponding python script to get PR-curve results:
+### Run the corresponding python script to get PR-curve results:
 
 ```
 cd jointE
 python pr_plot.py
+```
+
+Citation
+===
+
+```
+ @inproceedings{han2018neural,
+   title={Neural Knowledge Acquisition via Mutual Attention between Knowledge Graph and Text},
+   author={Han, Xu and Liu, Zhiyuan and Sun, Maosong},
+   booktitle={Proceedings of AAAI},
+   year={2018}
+ }
 ```
 
 
