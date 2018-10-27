@@ -23,29 +23,29 @@ lib.init()
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_float('nbatch_kg',100,'entity numbers used each training time')
+tf.app.flags.DEFINE_integer('nbatch_kg',100,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('margin',1.0,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('learning_rate_kg',0.001,'learning rate for kg')
-tf.app.flags.DEFINE_float('ent_total',lib.getEntityTotal(),'total of entities')
-tf.app.flags.DEFINE_float('rel_total',lib.getRelationTotal(),'total of relations')
-tf.app.flags.DEFINE_float('tri_total',lib.getTripleTotal(),'total of triples')
-tf.app.flags.DEFINE_float('katt_flag', 1, '1 for katt, 0 for att')
+tf.app.flags.DEFINE_integer('ent_total',lib.getEntityTotal(),'total of entities')
+tf.app.flags.DEFINE_integer('rel_total',lib.getRelationTotal(),'total of relations')
+tf.app.flags.DEFINE_integer('tri_total',lib.getTripleTotal(),'total of triples')
+tf.app.flags.DEFINE_integer('katt_flag', 1, '1 for katt, 0 for att')
 
 tf.app.flags.DEFINE_string('model', 'cnn', 'neural models to encode sentences')
-tf.app.flags.DEFINE_float('max_length',config['fixlen'],'maximum of number of words in one sentence')
-tf.app.flags.DEFINE_float('pos_num', config['maxlen'] * 2 + 1,'number of position embedding vectors')
-tf.app.flags.DEFINE_float('num_classes', config['textual_rel_total'],'maximum of relations')
+tf.app.flags.DEFINE_integer('max_length',config['fixlen'],'maximum of number of words in one sentence')
+tf.app.flags.DEFINE_integer('pos_num', config['maxlen'] * 2 + 1,'number of position embedding vectors')
+tf.app.flags.DEFINE_integer('num_classes', config['textual_rel_total'],'maximum of relations')
 
-tf.app.flags.DEFINE_float('hidden_size',230,'hidden feature size')
-tf.app.flags.DEFINE_float('pos_size',5,'position embedding size')
+tf.app.flags.DEFINE_integer('hidden_size',230,'hidden feature size')
+tf.app.flags.DEFINE_integer('pos_size',5,'position embedding size')
 
-tf.app.flags.DEFINE_float('max_epoch',30,'maximum of training epochs')
-tf.app.flags.DEFINE_float('batch_size',131*2,'entity numbers used each training time')
+tf.app.flags.DEFINE_integer('max_epoch',30,'maximum of training epochs')
+tf.app.flags.DEFINE_integer('batch_size',131*2,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('learning_rate',0.1,'entity numbers used each training time')
 tf.app.flags.DEFINE_float('weight_decay',0.00001,'weight_decay')
 tf.app.flags.DEFINE_float('keep_prob',1.0,'dropout rate')
 
-tf.app.flags.DEFINE_float('test_batch_size',131*2,'entity numbers used each test time')
+tf.app.flags.DEFINE_integer('test_batch_size',131*2,'entity numbers used each test time')
 tf.app.flags.DEFINE_string('checkpoint_path','./model/','path to store model')
 
 
