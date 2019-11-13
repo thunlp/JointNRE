@@ -31,7 +31,8 @@ Datasets are required in the folder data/ in the following format, containing at
 
 + text/vec.txt: the initial word embeddings.
 
-+ [[Download]](https://pan.baidu.com/s/1q7rctsoJ_YdlLa55yckwbQ)
++ [[Download (Baidu Cloud)]](https://pan.baidu.com/s/1q7rctsoJ_YdlLa55yckwbQ)
++ [[Download (Tsinghua Cloud)]](https://cloud.tsinghua.edu.cn/f/28ba8ac5262349dd9622/?dl=1)
 
 
 
