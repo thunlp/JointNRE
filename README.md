@@ -34,7 +34,7 @@ Datasets are required in the folder data/ in the following format, containing at
 + [[Download (Baidu Cloud)]](https://pan.baidu.com/s/1q7rctsoJ_YdlLa55yckwbQ)
 + [[Download (Tsinghua Cloud)]](https://cloud.tsinghua.edu.cn/f/28ba8ac5262349dd9622/?dl=1)
 
-
+For FB15K-NYT, we directly give the data for our code [[Download (Tsinghua Cloud)]](https://cloud.tsinghua.edu.cn/f/384836aacb1f4aee9fa3/?dl=1), as we cannot release the original data limited by the license of LDC.
 
 Run the experiments
 ==========
